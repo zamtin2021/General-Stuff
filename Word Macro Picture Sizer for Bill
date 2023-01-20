@@ -1,0 +1,21 @@
+Sub PictureSizer()
+
+Dim i As Long
+With ActiveDocument
+    For i = 1 To .InlineShapes.Count
+        If (i > 1) Then
+            With .InlineShapes(i)
+                If .Height >= .Width Then
+                    .Height = 250
+                Else
+                    .Width = 250
+                End If
+            End With
+        End If
+    Next i
+End With '
+' Resizes all but the first picture in the document.
+'
+'
+
+End Sub
