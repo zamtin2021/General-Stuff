@@ -1,19 +1,56 @@
+Public Function IsRotated(ils As InlineShape) As Boolean
+Dim d As Document
+Selection.InlineShapes(1).Select
+Selection.Copy
+Set d = Documents.Add(Visible:=False)
+d.Range.Paste
+d.InlineShapes(1).ConvertToShape
+If d.Shapes(1).Rotation <> 0 Then IsRotated = True
+d.Close 0
+End Function
 Sub PictureSizer()
-
 Dim i As Long
+Dim d As Document
+
 With ActiveDocument
     For i = 1 To .InlineShapes.Count
-        If (i > 1) Then
-            With .InlineShapes(i)
-                If .Height >= .Width Then
-                    .Height = 250
-                Else
-                    .Width = 250
-                End If
-            End With
+    'For Each iShape In ActiveDocument.InlineShapes
+        'If (i > 1) Then
+            'With .InlineShapes(i)
+    '        Set S = .InlineShapes(i)
+    '            IsRotated (S)
+    '            '.Rotation = 0
+    '            If S.Rotation = 0 Then
+    '                S.Height = 250
+    '            ElseIf S.Rotation > 91 Then
+    '                S.Width = 250
+    '            ElseIf S.Rotation > 181 Then
+    '                S.Height = 250
+    '            Else
+    '                S_.Width = 250
+    '            End If
+    '        'End With
+    '    'End If
+    'iShape.Rotation = 250
+    With .InlineShapes(i)
+        .Select
+        Selection.Copy
+        Set d = Documents.Add(Visible:=False)
+        d.Range.Paste
+        d.InlineShapes(1).ConvertToShape
+        If d.Shapes(1).Rotation = 90 Or d.Shapes(1).Rotation = 270 Then
+            .Width = 250
+        Else
+            .Height = 250
         End If
+    End With
+    'Next iShape
     Next i
-End With '
+
+
+
+
+End With
 ' Resizes all but the first picture in the document.
 '
 '
